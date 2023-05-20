@@ -9,18 +9,20 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+
 import java.util.Arrays;
 import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageView iv_11, iv_12, iv_13, iv_21, iv_22, iv_23, iv_31, iv_32, iv_33, iv_41, iv_42, iv_43;
+    ImageButton iv_11, iv_12, iv_13, iv_21, iv_22, iv_23, iv_31, iv_32, iv_33, iv_41, iv_42, iv_43;
 
     //array for the images
-    Integer[] cardsArray = {101, 102, 103, 104, 201, 202, 203, 204, 301, 302, 303, 304};
+    Integer[] cardsArray = {101, 102, 103, 104, 105, 106, 201, 202, 203, 204, 205, 206};
 
     //actual images
-    int fb1, gh1, ig1, yt1, fb2, gh2, ig2, yt2;
+    int image101, image102, image103, image104, image105, image106, image201, image202, image203,
+    image204, image205, image206;
 
     int firstCard, secondCard;
 
@@ -34,21 +36,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        iv_11 = (ImageView) findViewById(R.id.iv_11);
-        iv_12 = (ImageView) findViewById(R.id.iv_12);
-        iv_13 = (ImageView) findViewById(R.id.iv_13);
+        iv_11 = (ImageButton) findViewById(R.id.iv_11);
+        iv_12 = (ImageButton) findViewById(R.id.iv_12);
+        iv_13 = (ImageButton) findViewById(R.id.iv_13);
 
-        iv_21 = (ImageView) findViewById(R.id.iv_21);
-        iv_22 = (ImageView) findViewById(R.id.iv_22);
-        iv_23 = (ImageView) findViewById(R.id.iv_23);
+        iv_21 = (ImageButton) findViewById(R.id.iv_21);
+        iv_22 = (ImageButton) findViewById(R.id.iv_22);
+        iv_23 = (ImageButton) findViewById(R.id.iv_23);
 
-        iv_31 = (ImageView) findViewById(R.id.iv_31);
-        iv_32 = (ImageView) findViewById(R.id.iv_32);
-        iv_33 = (ImageView) findViewById(R.id.iv_33);
+        iv_31 = (ImageButton) findViewById(R.id.iv_31);
+        iv_32 = (ImageButton) findViewById(R.id.iv_32);
+        iv_33 = (ImageButton) findViewById(R.id.iv_33);
 
-        iv_41 = (ImageView) findViewById(R.id.iv_41);
-        iv_42 = (ImageView) findViewById(R.id.iv_42);
-        iv_43 = (ImageView) findViewById(R.id.iv_43);
+        iv_41 = (ImageButton) findViewById(R.id.iv_41);
+        iv_42 = (ImageButton) findViewById(R.id.iv_42);
+        iv_43 = (ImageButton) findViewById(R.id.iv_43);
 
         iv_11.setTag("0");
         iv_12.setTag("1");
@@ -175,30 +177,42 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void doStuff(ImageView iv, int card){
-        if(cardsArray[card] == fb1){
-            iv.setImageResource(fb1);
+        int cardValue = cardsArray[card];
+
+        if (cardValue == 101) {
+            iv.setImageResource(image101);
+        } else if (cardValue == 102) {
+            iv.setImageResource(image102);
+        } else if (cardValue == 103) {
+            iv.setImageResource(image103);
+        } else if (cardValue == 104) {
+            iv.setImageResource(image104);
         }
-        else if(cardsArray[card] == gh1){
-            iv.setImageResource(gh1);
+        else if (cardValue == 105) {
+            iv.setImageResource(image105);
         }
-        else if(cardsArray[card] == ig1){
-            iv.setImageResource(ig1);
+        else if (cardValue == 106) {
+            iv.setImageResource(image106);
         }
-        else if(cardsArray[card] == yt1){
-            iv.setImageResource(yt1);
+        else if (cardValue == 201) {
+            iv.setImageResource(image201);
         }
-        else if(cardsArray[card] == fb2){
-            iv.setImageResource(fb2);
+        else if (cardValue == 202) {
+            iv.setImageResource(image202);
         }
-        else if(cardsArray[card] == ig2){
-            iv.setImageResource(ig2);
+        else if (cardValue == 203) {
+            iv.setImageResource(image203);
         }
-        else if(cardsArray[card] == gh2){
-            iv.setImageResource(gh2);
+        else if (cardValue == 204) {
+            iv.setImageResource(image204);
         }
-        else if(cardsArray[card] == yt2){
-            iv.setImageResource(yt2);
+        else if (cardValue == 205) {
+            iv.setImageResource(image205);
         }
+        else if (cardValue == 206) {
+            iv.setImageResource(image206);
+        }
+
 
         //check which image is selected and store it to temporary variable
         if(cardNumber == 1){
@@ -251,7 +265,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void calculate(){
+        //remove the images if they are equal
+
         if(firstCard == secondCard){
+
             if(clickedFirst == 0){
                 iv_11.setVisibility(View.VISIBLE);
             }
@@ -288,41 +305,7 @@ public class MainActivity extends AppCompatActivity {
                 iv_43.setVisibility(View.VISIBLE);
             }
 
-            if(clickedSecond == 0){
-                iv_11.setVisibility(View.VISIBLE);
-            }
-            else if(clickedSecond == 1){
-                iv_12.setVisibility(View.VISIBLE);
-            }
-            else if(clickedSecond == 2){
-                iv_13.setVisibility(View.VISIBLE);
-            }
-            else if(clickedSecond == 3){
-                iv_21.setVisibility(View.VISIBLE);
-            }
-            else if(clickedSecond == 4){
-                iv_22.setVisibility(View.VISIBLE);
-            }
-            else if(clickedSecond == 5){
-                iv_23.setVisibility(View.VISIBLE);
-            }
-            else if(clickedSecond == 6){
-                iv_31.setVisibility(View.VISIBLE);
-            }
-            else if(clickedSecond == 7){
-                iv_32.setVisibility(View.VISIBLE);
-            }
-            else if(clickedSecond == 8){
-                iv_33.setVisibility(View.VISIBLE);
-            }else if(clickedSecond == 9){
-                iv_41.setVisibility(View.VISIBLE);
-            }
-            else if(clickedSecond == 10){
-                iv_42.setVisibility(View.VISIBLE);
-            }
-            else if(clickedSecond == 11){
-                iv_43.setVisibility(View.VISIBLE);
-            }
+
 
         }
         else{
@@ -361,15 +344,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void frontOfCardsResources(){
-        fb1 = R.drawable.fb1;
-        gh1 = R.drawable.gh1;
-        ig1 = R.drawable.ig1;
-        yt1 = R.drawable.yt1;
+        image101 = R.drawable.fb1;
+        image102 = R.drawable.gh1;
+        image103 = R.drawable.ig1;
+        image104 = R.drawable.yt1;
+        image105 = R.drawable.tw1;
+        image106 = R.drawable.bl1;
 
-        fb2 = R.drawable.fb2;
-        gh2 = R.drawable.gh2;
-        ig2 = R.drawable.ig2;
-        yt2 = R.drawable.yt2;
+        image201 = R.drawable.fb2;
+        image202 = R.drawable.gh2;
+        image203 = R.drawable.ig2;
+        image204 = R.drawable.yt2;
+        image205 = R.drawable.tw2;
+        image206 = R.drawable.bl2;
     }
 
 
