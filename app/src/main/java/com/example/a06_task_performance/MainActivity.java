@@ -10,12 +10,16 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.Arrays;
 import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity {
 
     ImageButton iv_11, iv_12, iv_13, iv_21, iv_22, iv_23, iv_31, iv_32, iv_33, iv_41, iv_42, iv_43;
+
+    FloatingActionButton button;
 
     //array for the images
     Integer[] cardsArray = {101, 102, 103, 104, 105, 106, 201, 202, 203, 204, 205, 206};
@@ -74,6 +78,25 @@ public class MainActivity extends AppCompatActivity {
 
         //shuffle the images
         Collections.shuffle(Arrays.asList(cardsArray));
+
+        button = findViewById(R.id.floatingActionButton);
+        button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                flipCard(iv_11, R.drawable.wow_light);
+                flipCard(iv_12, R.drawable.wow_light);
+                flipCard(iv_13, R.drawable.wow_light);
+                flipCard(iv_21, R.drawable.wow_light);
+                flipCard(iv_22, R.drawable.wow_light);
+                flipCard(iv_23, R.drawable.wow_light);
+                flipCard(iv_31, R.drawable.wow_light);
+                flipCard(iv_32, R.drawable.wow_light);
+                flipCard(iv_33, R.drawable.wow_light);
+                flipCard(iv_41, R.drawable.wow_light);
+                flipCard(iv_42, R.drawable.wow_light);
+                flipCard(iv_43, R.drawable.wow_light);
+            }
+        });
 
         iv_11.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -262,6 +285,11 @@ public class MainActivity extends AppCompatActivity {
             }, 1000);
         }
 
+    }
+
+    private void flipCard(ImageView iv, int img){
+        iv.setImageResource(img);
+        iv.setVisibility(View.VISIBLE);
     }
 
     private void calculate(){
