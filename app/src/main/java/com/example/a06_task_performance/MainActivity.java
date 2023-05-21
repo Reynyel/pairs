@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
     int cardNumber = 1;
 
+    boolean[] isMatched = new boolean[12]; // 12 cards
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,18 +85,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                flipCard(iv_11, R.drawable.wow_light);
-                flipCard(iv_12, R.drawable.wow_light);
-                flipCard(iv_13, R.drawable.wow_light);
-                flipCard(iv_21, R.drawable.wow_light);
-                flipCard(iv_22, R.drawable.wow_light);
-                flipCard(iv_23, R.drawable.wow_light);
-                flipCard(iv_31, R.drawable.wow_light);
-                flipCard(iv_32, R.drawable.wow_light);
-                flipCard(iv_33, R.drawable.wow_light);
-                flipCard(iv_41, R.drawable.wow_light);
-                flipCard(iv_42, R.drawable.wow_light);
-                flipCard(iv_43, R.drawable.wow_light);
+                reset();
             }
         });
 
@@ -202,6 +193,12 @@ public class MainActivity extends AppCompatActivity {
     private void doStuff(ImageView iv, int card){
         int cardValue = cardsArray[card];
 
+        if (isMatched[card]) {
+            // Card already matched, do nothing
+            return;
+        }
+
+
         if (cardValue == 101) {
             iv.setImageResource(image101);
         } else if (cardValue == 102) {
@@ -288,89 +285,88 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void flipCard(ImageView iv, int img){
-        iv.setImageResource(img);
-        iv.setVisibility(View.VISIBLE);
-    }
-
-    private void calculate(){
-        //remove the images if they are equal
-
-        if(firstCard == secondCard){
-
-            if(clickedFirst == 0){
-                iv_11.setVisibility(View.VISIBLE);
-            }
-            else if(clickedFirst == 1){
-                iv_12.setVisibility(View.VISIBLE);
-            }
-            else if(clickedFirst == 2){
-                iv_13.setVisibility(View.VISIBLE);
-            }
-            else if(clickedFirst == 3){
-                iv_21.setVisibility(View.VISIBLE);
-            }
-            else if(clickedFirst == 4){
-                iv_22.setVisibility(View.VISIBLE);
-            }
-            else if(clickedFirst == 5){
-                iv_23.setVisibility(View.VISIBLE);
-            }
-            else if(clickedFirst == 6){
-                iv_31.setVisibility(View.VISIBLE);
-            }
-            else if(clickedFirst == 7){
-                iv_32.setVisibility(View.VISIBLE);
-            }
-            else if(clickedFirst == 8){
-                iv_33.setVisibility(View.VISIBLE);
-            }else if(clickedFirst == 9){
-                iv_41.setVisibility(View.VISIBLE);
-            }
-            else if(clickedFirst == 10){
-                iv_42.setVisibility(View.VISIBLE);
-            }
-            else if(clickedFirst == 11){
-                iv_43.setVisibility(View.VISIBLE);
-            }
-
-
-
-        }
-        else{
-            iv_11.setImageResource(R.drawable.wow_light);
-            iv_12.setImageResource(R.drawable.wow_light);
-            iv_13.setImageResource(R.drawable.wow_light);
-
-            iv_21.setImageResource(R.drawable.wow_light);
-            iv_22.setImageResource(R.drawable.wow_light);
-            iv_23.setImageResource(R.drawable.wow_light);
-
-            iv_31.setImageResource(R.drawable.wow_light);
-            iv_32.setImageResource(R.drawable.wow_light);
-            iv_33.setImageResource(R.drawable.wow_light);
-
-            iv_41.setImageResource(R.drawable.wow_light);
-            iv_42.setImageResource(R.drawable.wow_light);
-            iv_43.setImageResource(R.drawable.wow_light);
+        if (!isMatched[Integer.parseInt((String) iv.getTag())]) {
+            iv.setImageResource(img);
+            iv.setVisibility(View.VISIBLE);
         }
 
-        iv_11.setEnabled(true);
-        iv_12.setEnabled(true);
-        iv_13.setEnabled(true);
-
-        iv_21.setEnabled(true);
-        iv_22.setEnabled(true);
-        iv_23.setEnabled(true);
-
-        iv_31.setEnabled(true);
-        iv_32.setEnabled(true);
-        iv_33.setEnabled(true);
-
-        iv_41.setEnabled(true);
-        iv_42.setEnabled(true);
-        iv_43.setEnabled(true);
     }
 
+    private void reset(){
+        flipCard(iv_11, R.drawable.wow_light);
+        flipCard(iv_12, R.drawable.wow_light);
+        flipCard(iv_13, R.drawable.wow_light);
+        flipCard(iv_21, R.drawable.wow_light);
+        flipCard(iv_22, R.drawable.wow_light);
+        flipCard(iv_23, R.drawable.wow_light);
+        flipCard(iv_31, R.drawable.wow_light);
+        flipCard(iv_32, R.drawable.wow_light);
+        flipCard(iv_33, R.drawable.wow_light);
+        flipCard(iv_41, R.drawable.wow_light);
+        flipCard(iv_42, R.drawable.wow_light);
+        flipCard(iv_43, R.drawable.wow_light);
+        Collections.shuffle(Arrays.asList(cardsArray));;
+    }
+    private void calculate() {
+        //correctly guessed images will stay in place and not flip back
+
+        if (firstCard != secondCard) {
+            // Cards don't match
+            flipCard(iv_11, R.drawable.wow_light);
+            flipCard(iv_12, R.drawable.wow_light);
+            flipCard(iv_13, R.drawable.wow_light);
+            flipCard(iv_21, R.drawable.wow_light);
+            flipCard(iv_22, R.drawable.wow_light);
+            flipCard(iv_23, R.drawable.wow_light);
+            flipCard(iv_31, R.drawable.wow_light);
+            flipCard(iv_32, R.drawable.wow_light);
+            flipCard(iv_33, R.drawable.wow_light);
+            flipCard(iv_41, R.drawable.wow_light);
+            flipCard(iv_42, R.drawable.wow_light);
+            flipCard(iv_43, R.drawable.wow_light);
+
+            // Enable the image views for the unmatched cards
+            iv_11.setEnabled(!isMatched[0]);
+            iv_12.setEnabled(!isMatched[1]);
+            iv_13.setEnabled(!isMatched[2]);
+            iv_21.setEnabled(!isMatched[3]);
+            iv_22.setEnabled(!isMatched[4]);
+            iv_23.setEnabled(!isMatched[5]);
+            iv_31.setEnabled(!isMatched[6]);
+            iv_32.setEnabled(!isMatched[7]);
+            iv_33.setEnabled(!isMatched[8]);
+            iv_41.setEnabled(!isMatched[9]);
+            iv_42.setEnabled(!isMatched[10]);
+            iv_43.setEnabled(!isMatched[11]);
+        } else {
+            // Cards match
+            isMatched[clickedFirst] = true;
+            isMatched[clickedSecond] = true;
+
+            // Check if all pairs are matched
+            boolean allMatched = true;
+            for (boolean matched : isMatched) {
+                if (!matched) {
+                    allMatched = false;
+                    break;
+                }
+            }
+
+
+            iv_11.setEnabled(!isMatched[0]);
+            iv_12.setEnabled(!isMatched[1]);
+            iv_13.setEnabled(!isMatched[2]);
+            iv_21.setEnabled(!isMatched[3]);
+            iv_22.setEnabled(!isMatched[4]);
+            iv_23.setEnabled(!isMatched[5]);
+            iv_31.setEnabled(!isMatched[6]);
+            iv_32.setEnabled(!isMatched[7]);
+            iv_33.setEnabled(!isMatched[8]);
+            iv_41.setEnabled(!isMatched[9]);
+            iv_42.setEnabled(!isMatched[10]);
+            iv_43.setEnabled(!isMatched[11]);
+        }
+    }
     private void frontOfCardsResources(){
         image101 = R.drawable.fb1;
         image102 = R.drawable.gh1;
@@ -386,6 +382,5 @@ public class MainActivity extends AppCompatActivity {
         image205 = R.drawable.tw2;
         image206 = R.drawable.bl2;
     }
-
 
 }
