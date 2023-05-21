@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        reset();
         iv_11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -189,6 +190,48 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    private void reset() {
+        flipCard(iv_11, R.drawable.wow_light);
+        flipCard(iv_12, R.drawable.wow_light);
+        flipCard(iv_13, R.drawable.wow_light);
+        flipCard(iv_21, R.drawable.wow_light);
+        flipCard(iv_22, R.drawable.wow_light);
+        flipCard(iv_23, R.drawable.wow_light);
+        flipCard(iv_31, R.drawable.wow_light);
+        flipCard(iv_32, R.drawable.wow_light);
+        flipCard(iv_33, R.drawable.wow_light);
+        flipCard(iv_41, R.drawable.wow_light);
+        flipCard(iv_42, R.drawable.wow_light);
+        flipCard(iv_43, R.drawable.wow_light);
+
+        Collections.shuffle(Arrays.asList(cardsArray));
+
+        // Reset the isMatched array
+        Arrays.fill(isMatched, false);
+
+        // Enable all image views
+        enableAllImageViews();
+
+        // Reset the cardNumber to 1
+        
+        cardNumber = 1;
+    }
+
+    private void enableAllImageViews() {
+        iv_11.setEnabled(true);
+        iv_12.setEnabled(true);
+        iv_13.setEnabled(true);
+        iv_21.setEnabled(true);
+        iv_22.setEnabled(true);
+        iv_23.setEnabled(true);
+        iv_31.setEnabled(true);
+        iv_32.setEnabled(true);
+        iv_33.setEnabled(true);
+        iv_41.setEnabled(true);
+        iv_42.setEnabled(true);
+        iv_43.setEnabled(true);
+    }
 
     private void doStuff(ImageView iv, int card){
         int cardValue = cardsArray[card];
@@ -292,25 +335,43 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void reset(){
-        flipCard(iv_11, R.drawable.wow_light);
-        flipCard(iv_12, R.drawable.wow_light);
-        flipCard(iv_13, R.drawable.wow_light);
-        flipCard(iv_21, R.drawable.wow_light);
-        flipCard(iv_22, R.drawable.wow_light);
-        flipCard(iv_23, R.drawable.wow_light);
-        flipCard(iv_31, R.drawable.wow_light);
-        flipCard(iv_32, R.drawable.wow_light);
-        flipCard(iv_33, R.drawable.wow_light);
-        flipCard(iv_41, R.drawable.wow_light);
-        flipCard(iv_42, R.drawable.wow_light);
-        flipCard(iv_43, R.drawable.wow_light);
-        Collections.shuffle(Arrays.asList(cardsArray));;
-    }
+
     private void calculate() {
         //correctly guessed images will stay in place and not flip back
 
-        if (firstCard != secondCard) {
+        if (firstCard == secondCard) {
+            // Cards match
+            isMatched[clickedFirst] = true;
+            isMatched[clickedSecond] = true;
+
+            // Check if all pairs are matched
+            boolean allMatched = true;
+            for (boolean matched : isMatched) {
+                if (!matched) {
+                    allMatched = false;
+                    break;
+                }
+            }
+
+            // Enable the image views for the unmatched cards
+            iv_11.setEnabled(!isMatched[0]);
+            iv_12.setEnabled(!isMatched[1]);
+            iv_13.setEnabled(!isMatched[2]);
+            iv_21.setEnabled(!isMatched[3]);
+            iv_22.setEnabled(!isMatched[4]);
+            iv_23.setEnabled(!isMatched[5]);
+            iv_31.setEnabled(!isMatched[6]);
+            iv_32.setEnabled(!isMatched[7]);
+            iv_33.setEnabled(!isMatched[8]);
+            iv_41.setEnabled(!isMatched[9]);
+            iv_42.setEnabled(!isMatched[10]);
+            iv_43.setEnabled(!isMatched[11]);
+
+            if (allMatched) {
+                // All pairs are matched, show a message or perform any other action
+                // You can add your code here
+            }
+        } else {
             // Cards don't match
             flipCard(iv_11, R.drawable.wow_light);
             flipCard(iv_12, R.drawable.wow_light);
@@ -326,33 +387,6 @@ public class MainActivity extends AppCompatActivity {
             flipCard(iv_43, R.drawable.wow_light);
 
             // Enable the image views for the unmatched cards
-            iv_11.setEnabled(!isMatched[0]);
-            iv_12.setEnabled(!isMatched[1]);
-            iv_13.setEnabled(!isMatched[2]);
-            iv_21.setEnabled(!isMatched[3]);
-            iv_22.setEnabled(!isMatched[4]);
-            iv_23.setEnabled(!isMatched[5]);
-            iv_31.setEnabled(!isMatched[6]);
-            iv_32.setEnabled(!isMatched[7]);
-            iv_33.setEnabled(!isMatched[8]);
-            iv_41.setEnabled(!isMatched[9]);
-            iv_42.setEnabled(!isMatched[10]);
-            iv_43.setEnabled(!isMatched[11]);
-        } else {
-            // Cards match
-            isMatched[clickedFirst] = true;
-            isMatched[clickedSecond] = true;
-
-            // Check if all pairs are matched
-            boolean allMatched = true;
-            for (boolean matched : isMatched) {
-                if (!matched) {
-                    allMatched = false;
-                    break;
-                }
-            }
-
-
             iv_11.setEnabled(!isMatched[0]);
             iv_12.setEnabled(!isMatched[1]);
             iv_13.setEnabled(!isMatched[2]);
