@@ -88,8 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 reset();
             }
         });
-
-        reset();
+        
         iv_11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -214,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
         enableAllImageViews();
 
         // Reset the cardNumber to 1
-        
+
         cardNumber = 1;
     }
 
@@ -367,10 +366,6 @@ public class MainActivity extends AppCompatActivity {
             iv_42.setEnabled(!isMatched[10]);
             iv_43.setEnabled(!isMatched[11]);
 
-            if (allMatched) {
-                // All pairs are matched, show a message or perform any other action
-                // You can add your code here
-            }
         } else {
             // Cards don't match
             flipCard(iv_11, R.drawable.wow_light);
